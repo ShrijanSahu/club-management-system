@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Handling</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-50 flex flex-col min-h-screen bg-blue-100">
+
+<!-- Navigation Bar -->
+<nav class="bg-gray-800 text-white p-4 fixed w-full z-10">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- <img src="logo.png" alt="IIT Gandhinagar Logo" class="h-8 mr-3"> -->
+        <div class="flex-grow">
+            <a href="#hero" class="text-xl font-bold">Clubs Management IIT Gandhinagar</a>
+        </div>
+        <div>
+            <!-- <a href="anshul2" class="px-4 py-2 hover:bg-gray-800 transition-colors">Clubs</a> -->
+            <a href="councils" class="px-4 py-2 hover:bg-gray-800 transition-colors">Clubs and Councils</a>
+            <a href="events" class="px-4 py-2 hover:bg-gray-800 transition-colors">Events</a>
+            <!-- <a href="equipment" class="px-4 py-2 hover:bg-gray-800 transition-colors">Equipment</a> -->
+            <a href="logout" class="px-4 py-2 hover:bg-gray-800 transition-colors">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mx-auto p-6" style="padding-top: 80px;">
+    <h1 class="text-2xl font-bold mb-4">Equipment Handling</h1>
+
+    <!-- Equipment Handling Dropdown -->
+    <div class="mb-4">
+        <label for="equipment-action" class="block mb-2 text-sm font-medium text-gray-900">Equipment Action:</label>
+        <form id="equipment-action" action="/equipmentaction" method="POST">
+            <select name="option" onchange="this.form.submit()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option value="" disabled selected>Select Action</option>
+                <option value="issue">Issue</option>
+                <option value="return">Return</option>
+                <option value="view_history">View History</option>
+            </select>
+        </form>
+    </div>
+    <!-- Initial Form Here -->
+
+    <!-- Conditional Logic and Forms Integration -->
+    {% if a==1 %}
+        <form id="selectclub" action="/selectclub" method="POST">
+            <select name="option2" onchange="this.form.submit()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option value="" disabled selected>Select Club</option>
+                {% for club in data %}
+                    <option value="{{club[0]}}">{{club[0]}}</option>
+                {% endfor %}
+            </select>
+        </form>
+    {% endif %}
+    
+    {% if a==2 %}
+        <form id="issueing" action="/issueequipment" method="POST">
+            <select name="option" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option value="" disabled selected>Select Equipment</option>
+                {% for equip in equipments %}
+                    <option value="{{equip[0]}}">{{equip[0]}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" id="sop" name="sop" placeholder="Enter Purpose" class="mt-4 p-2 w-full border rounded-md">
+            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ISSUE</button>
+        </form>
+    {% endif %}
+
+    {% if a==4 %}
+        <h1 class="text-xl font-semibold mt-6">Results</h1>
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-4">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">Roll Number</th>
+                        <th scope="col" class="py-3 px-6">Equipment ID</th>
+                        <th scope="col" class="py-3 px-6">Issue Time</th>
+                        <th scope="col" class="py-3 px-6">Return Time</th>
+                        <th scope="col" class="py-3 px-6">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr class="bg-white border-b">
+                            <td class="py-4 px-6">{{ row[1] }}</td>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    {% if a==5 %}
+        <form id="returning" action="/returnequipment" method="POST">
+            <select name="option" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option value="" disabled selected>Select Equipment</option>
+                {% for equip in data %}
+                    <option value="{{equip[0]}}">{{equip[1]}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+        </form>
+    {% endif %}
+</div>
+
+{% if message is defined and message %}
+<div class="col-span-3 mb-4">
+    <div class="bg-gray-300 shadow-md rounded p-3 text-center">
+        <div class="alert alert-warning">{{ message }}</div>
+    </div>
+</div>
+{% endif %}
+
+<footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+    © 2024 Clubs and Councils Management - IIT Gandhinagar. All Rights Reserved.
+</footer>
+
+</body>
+</html>

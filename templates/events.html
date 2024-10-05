@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    body {
+          font-family: Arial, sans-serif;
+          background-color: #f8f9fa;
+          margin: 0;
+          padding: 0;
+          background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMFtJPdILAAkL4frf6X13ydmNFZscVrYmAkQ&s'); /* Specify the path to your background image */
+            background-size:cover;
+            background-attachment: fixed
+      }
+</style>
+<body>
+    <!-- <nav class="bg-gray-800 text-white fixed w-full z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="logo.png" alt="IIT Gandhinagar Logo" class="h-8 mr-3">
+            <div class="flex-grow">
+                <a href="#hero" class="text-xl font-bold">Clubs Management IIT Gandhinagar</a>
+            </div>
+            <div>
+             <a href="anshul2" class="px-4 py-2 hover:bg-gray-800 transition-colors">Clubs</a> -->
+                <!-- <a href="councils" class="px-4 py-2 hover:bg-gray-800 transition-colors">Clubs and Councils</a>
+                <a href="events" class="px-4 py-2 hover:bg-gray-800 transition-colors">Events</a>
+                <a href="equipment" class="px-4 py-2 hover:bg-gray-800 transition-colors">Equipment</a>
+                <a href="logout" class="px-4 py-2 hover:bg-gray-800 transition-colors">Logout</a>
+            </div>
+        </div> -->
+    <!-- </nav> --> 
+
+    {% if message is defined and message %}
+    <div class="col-span-3 mb-4">
+        <div class="bg-gray-300 shadow-md rounded p-3 text-center">
+            <div class="alert alert-warning">{{ message }}</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h1 class="mt-5 mb-3 text-center">Upcoming Events</h1>
+        <div class="row">
+            {% for event in e %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="Palette.jpg" class="card-img-top" alt="{{ event.title }}">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ event.EVENTS_NAME }}</h5>
+                        <i><h6>Date Of the Event: {{event.DATE}}</h4></i>
+                        <a href="{{ url_for('event', ev = event.EVENTS_NAME, ed = event.EDITIONS)}}" >Read More</a>
+
+                        
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

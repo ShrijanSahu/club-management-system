@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Councils at IIT Gandhinagar</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        #hero {
+            background-color: #0057b8;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-blue-100">
+
+    <!-- Navigation -->
+    <nav class="bg-gray-800 text-white p-4 fixed w-full z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex-grow">
+                <h1 class="text-xl font-bold">Clubs Management IIT Gandhinagar</h1>
+                <!-- <h1 class="text-xl font-bold text-align">Councils at IIT Gandhinagar</h1> -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- <section id="hero" class="h-64 flex flex-col justify-center items-center text-center">
+        <h1 class="text-5xl font-bold">Councils at IIT Gandhinagar</h1>
+    </section> -->
+
+    <!-- Councils Section -->
+    <section id="councils" class="container mx-auto text-center py-10" style="padding-top: 100px">
+        <div class="overflow-x-auto">
+            <h1 class="text-2xl font-bold py-2">Councils at IIT Gandhinagar</h1>
+            <table class="w-full text-sm text-left bg-gray-50 border-gray-800">
+                <thead>
+                    <tr class="text-lg font-semibold bg-gray-100">
+                        <th class="px-4 py-2 border">Council Name</th>
+                        <th class="px-4 py-2 border">Description</th>
+                        <th class="px-4 py-2 border">Total Members</th>
+                        <th class="px-4 py-2 border">Actions</th> <!-- New column for "Know More" button -->
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                {% for council in councils %}   
+                    <tr>
+                        <td class="border px-4 py-2">
+                            {{ council.COUNCIL_NAME }}
+                    </td>
+                        <td class="border px-4 py-2">{{ council.DESCRIPTION }}</td>
+                        <td class="border px-4 py-2">{{ council.TOTAL_MEMBERS }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="{{ url_for('council_members', council_name=council.COUNCIL_NAME) }}" style="color: rgb(71, 129, 199);">
+                              <i><u>Know More about {{ council.COUNCIL_NAME }}</u> </i> 
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    {% if message is defined and message %}
+    <div class="col-span-3 mb-4">
+        <div class="bg-gray-300 shadow-md rounded p-3 text-center">
+            <div class="alert alert-warning">{{ message }}</div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Hobby Groups Section -->
+    <section id="Hobby Groups" class="container mx-auto text-center py-20">
+        <div class="overflow-x-auto">
+            <h1 class="text-2xl font-bold py-2">Hobby Clubs</h1>
+            <table class="w-full text-sm text-left bg-gray-50 border-gray-800">
+                <thead>
+                    <tr class="text-lg font-semibold bg-gray-100">
+                        <th class="px-4 py-2 border">Club Name</th>
+                        <th class="px-4 py-2 border">Description</th>
+                        <th class="px-4 py-2 border">Total Members</th>
+                        <th class="px-4 py-2 border">Actions</th> <!-- New column for "Know More" button -->
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                {% for club in clubs %}   
+                    <tr>
+                        <td class="border px-4 py-2">
+                            {{ club.CLUB_NAME }}
+                    </td>
+                        <td class="border px-4 py-2">{{ club.DESCRIPTION }}</td>
+                        <td class="border px-4 py-2">{{ club.TOTAL_MEMBERS }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="{{ url_for('clubs', club_name=club.CLUB_NAME) }}" style="color: rgb(71, 129, 199);" >
+                              <i> <u>  Know More about {{club.CLUB_NAME}}</u> </i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white p-5 text-center">
+        Developed by ManuDB<br>IIT Gandhinagar, Palaj, Gujarat
+    </footer>
+
+</body>
+</html>

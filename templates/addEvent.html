@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Event</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://t4.ftcdn.net/jpg/02/85/29/15/240_F_285291535_cE6SWp1a3YzVF5AFZp9wqoYaRf66zPNS.jpg"); /* Specify the URL of your background image */
+        background-size: cover; /* Cover the entire background */
+        background-repeat: no-repeat; /* Do not repeat the background image */
+        background-attachment: scroll;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1,
+      h2 {
+        color: #333;
+        text-align: center; /* Center the heading */
+      }
+
+      form {
+        background-color: white; /* Add transparency to the form background */
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: #fff;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+
+    <script>
+      // Function to add a new Team Member field
+      function addTeamMemberField() {
+        var container = document.getElementById("team-members-container");
+        var input = document.createElement("input");
+        input.type = "text";
+        input.name = "team_member";
+        input.placeholder = "Team Member";
+        container.appendChild(input);
+      }
+    </script>
+
+    <script>
+      function togglePlaceAndTime() {
+        var modeOfConduct = document.getElementById("mode_of_conduct").value;
+        var placeAndTimeFields = document.getElementById(
+          "place_and_time_fields"
+        );
+
+        if (modeOfConduct === "Offline") {
+          placeAndTimeFields.style.display = "block";
+        } else {
+          placeAndTimeFields.style.display = "none";
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Add Event</h1>
+    </div>
+    <form action="/addEvent" method="post">
+      <h2>Event Details</h2>
+
+      <label for="event_name">Event Name:</label><br />
+      <input type="text" id="event_name" name="event_name" /><br />
+      <label for="edition">Edition:</label><br />
+      <input type="text" id="edition" name="edition" /><br />
+      <label for="mode_of_conduct">Mode of Conduct:</label><br />
+      <select
+        id="mode_of_conduct"
+        name="mode_of_conduct"
+        onchange="togglePlaceAndTime()"
+      >
+        <option value="Online">Online</option>
+        <option value="Offline">Offline</option></select
+      ><br />
+      <label for="description">Description:</label><br />
+      <textarea id="description" name="description"></textarea><br />
+      <label for="participation_form">Participation Form:</label><br />
+      <input
+        type="text"
+        id="participation_form"
+        name="participation_form"
+      /><br />
+      <label for="rulebook_link">Rulebook Link:</label><br />
+      <input type="text" id="rulebook_link" name="rulebook_link" /><br />
+      <label for="employee_id">Employee id</label><br />
+      <input type="number" id="employee_id" name="employee_id" /><br />
+      <label for="budget">Budget:</label><br />
+      <input type="number" id="budget" name="budget" /><br /><br />
+      <br />
+
+      <div id="place_and_time_fields" style="display: none;">
+      <h2>Place and Time Details</h2>
+      <label for="venue">Venue Name:</label><br />
+      <input type="text" id="venue" name="venue" /><br />
+
+      <label for="date">Date:</label><br />
+      <input type="date" id="date" name="date" /><br />
+
+      <label for="start_time">Start Time:</label><br />
+      <input type="time" id="start_time" name="start_time" step="1" /><br />
+
+      <label for="end_time">End Time:</label><br />
+      <input type="time" id="end_time" name="end_time" step="1" /><br />
+      </div>
+
+      <br />
+      <h2>For Organizers</h2>
+      <label for="event_lead_roll_no">Event Lead:</label><br />
+      <input
+        type="text"
+        id="event_lead_roll_no"
+        name="event_lead_roll_no"
+        placeholder="Event Lead Roll No"
+      /><br />
+
+      <div id="team-members-container">
+        <label for="team_member">Team Member:</label><br />
+        <input
+          type="text"
+          name="team_member"
+          placeholder="Team Member Roll No"
+        /><br />
+      </div>
+      <button type="button" onclick="addTeamMemberField()">
+        Add Team Member</button
+      ><br /><br />
+
+      <br />
+      <h2>Conducting Club</h2>
+      <label for="club_name">Club Name:</label><br />
+      <input type="text" id="club_name" name="club_name" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    {% if message is defined and message %}
+    <div class="col-span-3 mb-4">
+        <div class="bg-gray-300 shadow-md rounded p-3 text-center">
+            <div class="alert alert-warning">{{ message }}</div>
+        </div>
+    </div>
+    {% endif %}
+  </body>
+</html>
